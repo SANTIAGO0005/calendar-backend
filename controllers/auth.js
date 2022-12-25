@@ -79,12 +79,6 @@ const loginUsuario = async(req, res = response) => {
       msg: "Por favor hable con el administrador",
     });
   }
-  res.status(200).json({
-    ok: true,
-    msg: "login",
-    email,
-    password,
-  });
 };
 
 const refreshToken = async(req, res = response) => {
