@@ -11,7 +11,7 @@ const createUser = async (req, res = response) => {
     if (user) {
       return res.status(400).json({
         ok: false,
-        msg: "User existente",
+        msg: "Este Usuario ya existe",
       });
     }
 
@@ -89,6 +89,7 @@ const refreshToken = async(req, res = response) => {
 
   res.json({
     ok: true,
+    uid, name,
     token
   });
 };
