@@ -27,6 +27,6 @@ app.use('/api/events',require('./routes/events'))
 // TODO: auth // crear, login, renew
 // TODO: CRUD Eventos
 
-app.listen(process.env.PORT, () =>{
+app.listen(process.env.PORT_DEPLOY, () =>{
     console.log( 'servidor corriendo');
 })
