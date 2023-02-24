@@ -4,6 +4,9 @@ const Event = require("../models/Event");
 const getEvents = async (req, res = response) => {
   const events = await Event.find().populate("user", "name");
 
+  if(req.method === 'OPTIONS') {
+    res.status(200)
+  }
   return res.status(200).json({
     ok: true,
     events,
@@ -15,11 +18,15 @@ const createEvent = async (req, res = response) => {
   try {
     event.user = req.uid;
     const eventDB = await event.save();
-
+    
     res.json({
       ok: true,
       events: eventDB,
     });
+    
+    if(req.method === 'OPTIONS'){
+        res.status(200)
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -27,11 +34,7 @@ const createEvent = async (req, res = response) => {
       msg: "Hable con el administrador",
     });
   }
-
-  return res.status(200).json({
-    ok: true,
-    msg: "createEvent",
-  });
+  
 };
 
 const updateEvent = async (req, res = response) => {
@@ -66,6 +69,10 @@ const updateEvent = async (req, res = response) => {
         ok: true,
         event: eventUpdate
     })
+    
+    if(req.method === 'OPTIONS'){
+      res.status(200)
+    }
 
   } catch (error) {
     console.log(error);
@@ -73,7 +80,6 @@ const updateEvent = async (req, res = response) => {
 };
 
 const deleteEvent = async(req, res = response) => {
-  
 
     const eventId = req.params.id
     console.log(eventId);
@@ -97,13 +103,17 @@ const deleteEvent = async(req, res = response) => {
           })
       }
   
-  
+      
       await Event.findByIdAndDelete(eventId)
 
       res.json({
           ok: true,
           event: 'borrado'
       })
+
+      if(req.method === 'OPTIONS'){
+        res.status(200)
+      }
   
     } catch (error) {
         console.log(error);
@@ -112,11 +122,6 @@ const deleteEvent = async(req, res = response) => {
             msg: 'Hable con el administrador'
         })
     };
-    
-    // res.status(200).json({
-    //     ok:true,
-    //     msg: `${req.uid}`
-    // })
 }
 module.exports = {
   getEvents,
