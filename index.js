@@ -12,7 +12,7 @@ const app = express()
 dbConnection()
 
 // CORS
-const whitelist = ['https://calendar-backend-gamma.vercel.app','http://calendar-backend-santiago0005.vercel.app']
+const whitelist = ['https://calendar-app-gold.vercel.app','https://calendar-backend-gamma.vercel.app','http://calendar-backend-santiago0005.vercel.app']
 app.use(cors({origin: whitelist}))
 // Directorio publico
 app.use(express.static('public'))
